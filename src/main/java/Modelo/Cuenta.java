@@ -2,87 +2,89 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo;
+package modelo;
 
 /**
- *
- * @author CamiLaNekoUwU_Gamer
+ * Clase que representa una cuenta bancaria genérica
+ * Contiene los atributos y métodos comunes a todas las cuentas
  */
 public class Cuenta {
-    private int numero;
-    private String nombreDueño;
-    private Fecha fechaApertura;
-    private double saldo;
-
-    public Cuenta(int numero, String nombreDueno, Fecha fechaApertura, double saldo) {
-        this.numero = numero;
-        this.nombreDueño = nombreDueño;
-        this.fechaApertura = fechaApertura;
+    protected String numeroCuenta;
+    protected String nombreDueno;
+    protected double saldo;
+    protected int diaApertura;
+    protected int mesApertura;
+    protected int anioApertura;
+    
+    /**
+     * Constructor de la clase Cuenta
+     */
+    public Cuenta(String numeroCuenta, String nombreDueno, int diaApertura, 
+                  int mesApertura, int anioApertura) {
+        this.numeroCuenta = numeroCuenta;
+        this.nombreDueno = nombreDueno;
         this.saldo = 0.0;
+        this.diaApertura = diaApertura;
+        this.mesApertura = mesApertura;
+        this.anioApertura = anioApertura;
     }
-
-    public int getNumero() {
-        return numero;
+    
+    /**
+     * Sobrecarga: Constructor con saldo inicial
+     */
+    public Cuenta(String numeroCuenta, String nombreDueno, double saldoInicial,
+                  int diaApertura, int mesApertura, int anioApertura) {
+        this(numeroCuenta, nombreDueno, diaApertura, mesApertura, anioApertura);
+        this.saldo = saldoInicial;
     }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
+    
+    /**
+     * Método para realizar consignaciones
+     */
+    public void consignar(double monto) {
+        if (monto > 0) {
+            saldo += monto;
+        }
     }
-
-    public String getNombreDueño() {
-        return nombreDueño;
+    
+    /**
+     * Método para realizar retiros
+     */
+    public void retirar(double monto) {
+        if (monto > 0 && monto <= saldo) {
+            saldo -= monto;
+        }
     }
-
-    public void setNombreDueno(String nombreDueno) {
-        this.nombreDueño = nombreDueño;
-    }
-
-    public Fecha getFechaApertura() {
-        return fechaApertura;
-    }
-
-    public void setFechaApertura(Fecha fechaApertura) {
-        this.fechaApertura = fechaApertura;
-    }
-
+    
+    /**
+     * Obtiene el saldo actual
+     */
     public double getSaldo() {
         return saldo;
     }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
-    public void consignar(double monto) {
-        if (monto > 0) {
-            this.saldo += monto;
-        }
+    
+    /**
+     * Obtiene el número de cuenta
+     */
+    public String getNumeroCuenta() {
+        return numeroCuenta;
     }
     
-    public void consignar(double monto, String mensaje) {
-        if (monto > 0) {
-            this.saldo += monto;
-            System.out.println(mensaje + " - Monto: $" + monto);
-        }
+    /**
+     * Obtiene el nombre del dueño
+     */
+    public String getNombreDueno() {
+        return nombreDueno;
     }
     
-     public void retirar(double monto) {
-        if (monto > 0 && monto <= saldo) {
-            this.saldo -= monto;
-        }
+    /**
+     * Imprime todos los datos de la cuenta
+     */
+    public void imprimirDatos() {
+        System.out.println("════════════════════════════════");
+        System.out.println("Número de Cuenta: " + numeroCuenta);
+        System.out.println("Titular: " + nombreDueno);
+        System.out.println("Saldo: $" + String.format("%.2f", saldo));
+        System.out.println("Fecha Apertura: " + diaApertura + "/" + mesApertura + "/" + anioApertura);
     }
-     
-     public String imprimirDatos() {
-        return "Numero: " + numero + 
-               "\nNombre Dueño: " + nombreDueño +
-               "\nFecha Apertura: " + fechaApertura.toString() +
-               "\nSaldo: $" + saldo;
-    }
-
-    @Override
-    public String toString() {
-        return "Cuenta{" + "numero=" + numero + ", nombreDueno=" + nombreDueño + ", fechaApertura=" + fechaApertura + ", saldo=" + saldo + '}';
-    }
-     
-     
-    
 }
