@@ -10,13 +10,13 @@ package Modelo;
  */
 public class Cuenta {
     private int numero;
-    private String nombreDueno;
+    private String nombreDueño;
     private Fecha fechaApertura;
     private double saldo;
 
     public Cuenta(int numero, String nombreDueno, Fecha fechaApertura, double saldo) {
         this.numero = numero;
-        this.nombreDueno = nombreDueno;
+        this.nombreDueño = nombreDueño;
         this.fechaApertura = fechaApertura;
         this.saldo = 0.0;
     }
@@ -29,12 +29,12 @@ public class Cuenta {
         this.numero = numero;
     }
 
-    public String getNombreDueno() {
-        return nombreDueno;
+    public String getNombreDueño() {
+        return nombreDueño;
     }
 
     public void setNombreDueno(String nombreDueno) {
-        this.nombreDueno = nombreDueno;
+        this.nombreDueño = nombreDueño;
     }
 
     public Fecha getFechaApertura() {
@@ -57,5 +57,32 @@ public class Cuenta {
             this.saldo += monto;
         }
     }
+    
+    public void consignar(double monto, String mensaje) {
+        if (monto > 0) {
+            this.saldo += monto;
+            System.out.println(mensaje + " - Monto: $" + monto);
+        }
+    }
+    
+     public void retirar(double monto) {
+        if (monto > 0 && monto <= saldo) {
+            this.saldo -= monto;
+        }
+    }
+     
+     public String imprimirDatos() {
+        return "Numero: " + numero + 
+               "\nNombre Dueño: " + nombreDueño +
+               "\nFecha Apertura: " + fechaApertura.toString() +
+               "\nSaldo: $" + saldo;
+    }
+
+    @Override
+    public String toString() {
+        return "Cuenta{" + "numero=" + numero + ", nombreDueno=" + nombreDueño + ", fechaApertura=" + fechaApertura + ", saldo=" + saldo + '}';
+    }
+     
+     
     
 }
